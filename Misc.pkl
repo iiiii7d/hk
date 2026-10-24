@@ -1,0 +1,29 @@
+import "@hk/Builtins.pkl"
+import "@hk/Config.pkl"
+
+const zizmor = Builtins.zizmor
+const actionlint = Builtins.actionlint
+const poutine = new Config.Step {
+    glob = Builtins.zizmor.glob
+    check = "poutine analyze_local . --skip github_action_from_unverified_creator_used"
+}
+const hadolint = Builtins.hadolint
+const shellheck = Builtins.shellcheck
+
+const function mkdir_sarif(sarif_dir: String) = new Config.Sarif {
+    fix = "mkdir \(sarif_dir) || true"
+    exclusive = true
+}
+
+const function zizmor_sarif(sarif_dir: String) = new Config.Step {
+    fix = zizmor.fix.replaceAll("{{ files }}", ".") + " --format=sarif > \(sarif_dir)/zizmor.sarif"
+}
+const function actionlint_sarif(sarif_dir: String) = new Config.Step {
+    check = "actionlint -format \"$(curl -sSL \"https://cdn.jsdelivr.net/gh/kjanat/actionlint/sarif_template.txt\")\" > \(sarif_dir)/actionlint.sarif"
+}
+const function poutine_sarif(sarif_dir: String) = new Config.Step {
+    check = poutine.check as String + " --format=sarif > \(sarif_dir)/poutine.sarif"
+}
+const function hadolint_sarif(sarif_dir: String) = new Config.Step {
+    check = hadolint.check.replaceAll("{{ files }}", "Dockerfile") + " --format=sarif > \(sarif_dir)/hadolint.sarif"
+}

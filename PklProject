@@ -1,17 +1,20 @@
 amends "pkl:Project"
 
+local hkVersion = "2.8.0"
+local release = "1"
+
 dependencies {
   ["hk"] { 
-    uri = "package://github.com/jdx/hk/releases/download/v" + read?("env:VERSION") + "/hk@" + read?("env:VERSION")
+    uri = "package://github.com/jdx/hk/releases/download/v\(hkVersion)/hk@\(hkVersion)"
   }
 }
 
 package {
   name = "hk"
   authors { "7d <61975820+iiiii7d@users.noreply.github.com>" }
-  version = read?("env:VERSION") ?? "0.0.1-SNAPSHOT"
+  version = hkVersion + "-" + release
   baseUri = "package://pkg.pkl-lang.org/github.com/iiiii7d/hk"
   packageZipUrl = "https://github.com/iiiii7d/hk/releases/download/v\(version)/\(name)@\(version).zip"
   sourceCode = "https://github.com/iiiii7d/hk"
-  sourceCodeUrlScheme = "https://github.com/iiiii7d/hk/blob/\(version)/pkl%{path}#%{line}-%{endLine}"
+  sourceCodeUrlScheme = "https://github.com/iiiii7d/hk/blob/\(version)%{path}#%{line}-%{endLine}"
 }

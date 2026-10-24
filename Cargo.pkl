@@ -1,0 +1,21 @@
+import "@hk/Builtins.pkl"
+import "@hk/Config.pkl"
+
+const cargo_fmt = Builtins.cargo_fmt
+
+const cargo_clippy = (Builtins.cargo_clippy) {
+    check = (super.check) {
+        command = super.command + " --all-targets --all-features"
+    }
+    fix = (super.fix) {
+        command = super.command + " --all-targets --all-features"
+    }
+}
+
+const function cargo_clippy_sarif(sarif_dir: String) = new Config.Step {
+    workspace_indicator = "Cargo.toml"
+    fix = (cargo_clippy.fix) {
+        command = super.command + " --message-format=json | clippy-sarif > \(sarif_dir)/clippy-{{ workspace }}.sarif"
+    }
+}
+

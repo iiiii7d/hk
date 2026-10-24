@@ -1,0 +1,26 @@
+import "@hk/Builtins.pkl"
+import "@hk/Config.pkl"
+
+const pnpm_format = (Builtins.prettier) {
+    workspace_indicator = "package.json"
+    check = "cd {{ workspace }} && pnpm run format:check {{ workspace_files }}"
+    check_list_files = null
+    fix = "cd {{ workspace }} && pnpm run format {{ workspace_files }}"
+}
+
+const pnpm_lint = (Builtins.eslint) {
+    workspace_indicator = "package.json"
+    check = "cd {{ workspace }} && pnpm run lint {{ workspace_files }}"
+    fix = "cd {{ workspace }} && pnpm run lint:fix {{ workspace_files }}"
+}
+
+const function pnpm_lint_sarif(sarif_dir: String) = new Config.Step {
+    workspace_indicator = "package.json"
+    fix = "cd {{ workspace }} && pnpm run lint:sarif > \(sarif_dir)/eslint-{{ workspace }}.sarif"
+}
+
+const pnpm_type_check = new Config.Step {
+    workspace_indicator = "package.json"
+    glob = Builtins.eslint.glob
+    check = "cd {{ workspace }} && pnpm run type-check"
+}
