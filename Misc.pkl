@@ -16,7 +16,7 @@ const function mkdir_sarif(sarif_dir: String) = new Config.Step {
 }
 
 const function zizmor_sarif(sarif_dir: String) = new Config.Step {
-    fix = zizmor.fix.replaceAll("{{ files }}", ".") + " --format=sarif > \(sarif_dir)/zizmor.sarif"
+    fix = zizmor.fix.command.replaceAll("{{ files }}", ".") + " --format=sarif > \(sarif_dir)/zizmor.sarif"
 }
 const function actionlint_sarif(sarif_dir: String) = new Config.Step {
     check = "actionlint -format \"$(curl -sSL \"https://cdn.jsdelivr.net/gh/kjanat/actionlint/sarif_template.txt\")\" > \(sarif_dir)/actionlint.sarif"
