@@ -8,9 +8,9 @@ const poutine = new Config.Step {
     check = "poutine analyze_local . --skip github_action_from_unverified_creator_used"
 }
 const hadolint = Builtins.hadolint
-const shellheck = Builtins.shellcheck
+const shellcheck = Builtins.shellcheck
 
-const function mkdir_sarif(sarif_dir: String) = new Config.Sarif {
+const function mkdir_sarif(sarif_dir: String) = new Config.Step {
     fix = "mkdir \(sarif_dir) || true"
     exclusive = true
 }

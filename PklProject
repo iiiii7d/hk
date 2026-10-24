@@ -1,7 +1,7 @@
 amends "pkl:Project"
 
 local hkVersion = "2.8.0"
-local release = "1"
+local release = "2"
 
 dependencies {
   ["hk"] { 
