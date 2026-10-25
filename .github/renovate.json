@@ -3,5 +3,18 @@
   "extends": [
     "github>iiiii7d/renovate-config:no-dev",
     ":pinAllExceptPeerDependencies"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)PklProject$/"
+      ],
+      "matchStrings": [
+        "local hkVersion = (?<currentValue>.+?)",
+      ],
+      "datasourceTemplate": "github-tags",
+      "packageNameTemplate": "jdx/hk"
+    }
   ]
 }
