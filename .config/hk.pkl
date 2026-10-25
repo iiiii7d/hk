@@ -1,6 +1,6 @@
 amends "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pkl"
 import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
-import "package://github.com/iiiii7d/hk/releases/download/v2.8.0-5/hk@2.8.0-5#/Misc.pkl"
+import "../Misc.pkl"
 
 local linters = new Mapping<String, Step> {
     ["zizmor"] = Misc.zizmor
