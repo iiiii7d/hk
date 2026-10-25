@@ -1,5 +1,5 @@
-import "@hk/Builtins.pkl"
-import "@hk/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pkl"
 
 const hatch_check_fmt = (Builtins.ruff_format) {
     workspace_indicator = "pyproject.toml"

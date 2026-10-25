@@ -1,13 +1,7 @@
 amends "pkl:Project"
 
 local hkVersion = "2.8.0"
-local release = "5"
-
-dependencies {
-  ["hk"] { 
-    uri = "package://github.com/jdx/hk/releases/download/v\(hkVersion)/hk@\(hkVersion)"
-  }
-}
+local release = "6"
 
 package {
   name = "hk"
