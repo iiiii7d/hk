@@ -1,5 +1,5 @@
 [tools]
-pkl = "0.32.2"
+pkl = "0.33.0"
 
 [settings]
 minimum_release_age = "3d"
