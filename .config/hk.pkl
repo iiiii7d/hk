@@ -2,41 +2,15 @@ amends "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.
 import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
 import "../Misc.pkl"
 
-local linters = new Mapping<String, Step> {
+steps = new Mapping<String, Step | Group> {
     ["zizmor"] = Misc.zizmor
     ["actionlint"] = Misc.actionlint
     ["poutine"] = Misc.poutine
-}
-local sarif = new Mapping<String, Step> {
-    ["mkdir"] = Misc.mkdir_sarif(".sarif")
-    ["zizmor"] = Misc.zizmor_sarif(".sarif")
-    ["actionlint"] = Misc.actionlint_sarif(".sarif")
-    ["poutine"] = Misc.poutine_sarif(".sarif")
 }
 
 hooks {
     ["pre-commit"] {
         fix = true
         stash = "git"
-        steps = new Mapping<String, Step | Group> {
-            ...linters
-        }
-    }
-    ["fix"] {
-        fix = true
-        steps = new Mapping<String, Step | Group> {
-            ...linters
-        }
-    }
-    ["check"] {
-        steps = new Mapping<String, Step | Group> {
-            ...linters
-        }
-    }
-    ["sarif"] {
-        fix = true
-        steps = new Mapping<String, Step | Group> {
-            ...sarif
-        }
     }
 }

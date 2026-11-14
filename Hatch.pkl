@@ -1,5 +1,5 @@
-import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
-import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.pkl"
 
 const hatch_check_fmt = (Builtins.ruff_format) {
     workspace_indicator = "pyproject.toml"
@@ -18,9 +18,5 @@ const hatch_check_types = new Config.Step {
     workspace_indicator = "pyproject.toml"
     types = Builtins.ruff.types
     check = "cd {{ workspace }} && hatch check types"
-}
-
-const function hatch_check_code_sarif(sarif_dir: String) = new Config.Step {
-    workspace_indicator = "pyproject.toml"
-    fix = hatch_check_code.fix.replaceAll("{{ workspace_files }}", "") + " --output-format=sarif > \(sarif_dir)/hatch-{{ workspace | replace(from=\"/\", to=\"--\") }}.sarif"
+    // no support yet :(
 }

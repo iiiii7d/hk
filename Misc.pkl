@@ -1,36 +1,68 @@
-import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
-import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.pkl"
 
-const zizmor = Builtins.zizmor
+const zizmor_inner = Builtins.zizmor
+const zizmor = new Config.Group {
+    steps {
+        ["zizmor_no_sarif"] = (zizmor_inner) {
+            profiles = List("!sarif")
+        }
+        ["zizmor_sarif"] = (zizmor_inner) {
+            profiles = List("sarif")
+            check = (super.check) {
+                command = (super.command) {
+                    argv = super.argv + List("--format=sarif")
+                }
+            }
+            fix = (super.check) {
+                command = (super.command) {
+                    argv = super.argv + List("--format=sarif")
+                }
+            }
+            diagnostic_format = "sarif"
+            diagnostic_tool = "zizmor"
+        }
+    }
+}
+
 const actionlint = Builtins.actionlint
-const poutine = new Config.Step {
+
+const poutine_inner = new Config.Step {
     glob = Builtins.zizmor.glob
     check = "poutine analyze_local . --skip github_action_from_unverified_creator_used"
 }
-const hadolint = Builtins.hadolint
+const poutine = new Config.Group {
+    steps {
+        ["poutine_no_sarif"] = (poutine_inner) {
+            profiles = List("!sarif")
+        }
+        ["poutine_sarif"] = (poutine_inner) {
+            profiles = List("sarif")
+            check = super.check + " --format=sarif"
+            diagnostic_format = "sarif"
+            diagnostic_tool = "poutine"
+        }
+    }
+}
+
+const hadolint_inner = Builtins.hadolint
+const hadolint = new Config.Group {
+    steps {
+        ["hadolint_no_sarif"] = (hadolint_inner) {
+            profiles = List("!sarif")
+        }
+        ["hadolint_sarif"] = (hadolint_inner) {
+            profiles = List("sarif")
+            check = (super.check) {
+                command = (super.command) {
+                    argv = super.argv + List("--format=sarif")
+                }
+            }
+            diagnostic_format = "sarif"
+            diagnostic_tool = "hadolint"
+        }
+    }
+}
+
 const shellcheck = Builtins.shellcheck
 
-const function mkdir_sarif(sarif_dir: String) = new Config.Step {
-    fix = "mkdir \(sarif_dir) || true"
-    exclusive = true
-}
-
-const function zizmor_sarif(sarif_dir: String) = new Config.Step {
-    glob = zizmor.glob
-    fix = (zizmor.fix) {
-        command = super.command.argv.join(" ").replaceAll("{{ files }}", ".") + " --format=sarif > \(sarif_dir)/zizmor.sarif"
-    }
-}
-const function actionlint_sarif(sarif_dir: String) = new Config.Step {
-    glob = actionlint.glob
-    check = "actionlint -format \"$(curl -sSL \"https://cdn.jsdelivr.net/gh/kjanat/actionlint/sarif_template.txt\")\" > \(sarif_dir)/actionlint.sarif"
-}
-const function poutine_sarif(sarif_dir: String) = new Config.Step {
-    check = poutine.check as String + " --format=sarif > \(sarif_dir)/poutine.sarif"
-}
-const function hadolint_sarif(sarif_dir: String) = new Config.Step {
-    glob = hadolint.glob
-    check = (hadolint.check) {
-        command = super.command.argv.join(" ").replaceAll("{{ files }}", "Dockerfile") + " --format=sarif > \(sarif_dir)/hadolint.sarif"
-    }
-}

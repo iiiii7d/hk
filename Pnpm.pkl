@@ -1,5 +1,5 @@
-import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
-import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.pkl"
 
 const pnpm_format = (Builtins.prettier) {
     workspace_indicator = "package.json"
@@ -14,13 +14,9 @@ const pnpm_lint = (Builtins.eslint) {
     fix = "cd {{ workspace }} && pnpm run lint:fix {{ workspace_files }}"
 }
 
-const function pnpm_lint_sarif(sarif_dir: String) = new Config.Step {
-    workspace_indicator = "package.json"
-    fix = "cd {{ workspace }} && pnpm run lint:sarif > \(sarif_dir)/eslint-{{ workspace | replace(from=\"/\", to=\"--\") }}.sarif"
-}
-
 const pnpm_type_check = new Config.Step {
     workspace_indicator = "package.json"
     glob = Builtins.eslint.glob
     check = "cd {{ workspace }} && pnpm run type-check"
+    diagnostic_format = "tsc"
 }
