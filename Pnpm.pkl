@@ -3,20 +3,23 @@ import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.
 
 const format = (Builtins.prettier) {
     workspace_indicator = "package.json"
-    check = "cd {{ workspace }} && pnpm run format:check {{ workspace_files }}"
+    check = "pnpm run format:check {{ workspace_files }}"
     check_list_files = null
-    fix = "cd {{ workspace }} && pnpm run format {{ workspace_files }}"
+    fix = "pnpm run format {{ workspace_files }}"
+    dir = "{{ workspace }}"
 }
 
 const lint = (Builtins.eslint) {
     workspace_indicator = "package.json"
-    check = "cd {{ workspace }} && pnpm run lint {{ workspace_files }}"
-    fix = "cd {{ workspace }} && pnpm run lint:fix {{ workspace_files }}"
+    check = "pnpm run lint {{ workspace_files }}"
+    fix = "pnpm run lint:fix {{ workspace_files }}"
+    dir = "{{ workspace }}"
 }
 
 const type_check = new Config.Step {
     workspace_indicator = "package.json"
     glob = Builtins.eslint.glob
-    check = "cd {{ workspace }} && pnpm run type-check"
+    check = "pnpm run type-check"
+    dir = "{{ workspace }}"
     diagnostic_format = "tsc"
 }

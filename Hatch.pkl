@@ -3,20 +3,23 @@ import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.
 
 const check_fmt = (Builtins.ruff_format) {
     workspace_indicator = "pyproject.toml"
-    check = "cd {{ workspace }} && hatch check fmt -- --force-exclude {{ workspace_files }}"
-    check_diff = "cd {{ workspace }} & hatch check fmt --fix -- --force-exclude --diff {{ workspace_files }}"
-    fix = "cd {{ workspace }} && hatch check fmt --fix -- --force-exclude {{ workspace_files }}"
+    check = "hatch check fmt -- --force-exclude {{ workspace_files }}"
+    check_diff = "hatch check fmt --fix -- --force-exclude --diff {{ workspace_files }}"
+    fix = "hatch check fmt --fix -- --force-exclude {{ workspace_files }}"
+    dir = "{{ workspace }}"
 }
 
 const check_code = (Builtins.ruff) {
     workspace_indicator = "pyproject.toml"
-    check = "cd {{ workspace }} && hatch check code -- --force-exclude {{ workspace_files }}"
-    fix = "cd {{ workspace }} && hatch check code --fix -- --force-exclude {{ workspace_files }}"
+    check = "hatch check code -- --force-exclude {{ workspace_files }}"
+    fix = "hatch check code --fix -- --force-exclude {{ workspace_files }}"
+    dir = "{{ workspace }}"
 }
 
 const check_types = new Config.Step {
     workspace_indicator = "pyproject.toml"
     types = Builtins.ruff.types
-    check = "cd {{ workspace }} && hatch check types"
+    check = "hatch check types"
+    dir = "{{ workspace }}"
     // no support yet :(
 }
