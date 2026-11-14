@@ -1,20 +1,20 @@
 import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
 import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.pkl"
 
-const pnpm_format = (Builtins.prettier) {
+const format = (Builtins.prettier) {
     workspace_indicator = "package.json"
     check = "cd {{ workspace }} && pnpm run format:check {{ workspace_files }}"
     check_list_files = null
     fix = "cd {{ workspace }} && pnpm run format {{ workspace_files }}"
 }
 
-const pnpm_lint = (Builtins.eslint) {
+const lint = (Builtins.eslint) {
     workspace_indicator = "package.json"
     check = "cd {{ workspace }} && pnpm run lint {{ workspace_files }}"
     fix = "cd {{ workspace }} && pnpm run lint:fix {{ workspace_files }}"
 }
 
-const pnpm_type_check = new Config.Step {
+const type_check = new Config.Step {
     workspace_indicator = "package.json"
     glob = Builtins.eslint.glob
     check = "cd {{ workspace }} && pnpm run type-check"

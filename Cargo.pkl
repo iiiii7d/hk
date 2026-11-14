@@ -1,9 +1,9 @@
 import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
 import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.pkl"
 
-const cargo_fmt = Builtins.cargo_fmt
+const fmt = Builtins.cargo_fmt
 
-const cargo_clippy = (Builtins.cargo_clippy) {
+const clippy = (Builtins.cargo_clippy) {
     check = (super.check) {
         command = super.command + " --all-targets --all-features"
     }
