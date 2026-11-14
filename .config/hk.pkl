@@ -3,9 +3,9 @@ import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtin
 import "../Misc.pkl"
 
 steps = new Mapping<String, Step | Group> {
-    ["zizmor"] = Misc.zizmor
+    ...Misc.zizmor.steps
     ["actionlint"] = Misc.actionlint
-    ["poutine"] = Misc.poutine
+    ...Misc.poutine.steps
 }
 
 hooks {
