@@ -22,5 +22,5 @@ const hatch_check_types = new Config.Step {
 
 const function hatch_check_code_sarif(sarif_dir: String) = new Config.Step {
     workspace_indicator = "pyproject.toml"
-    fix = hatch_check_code.fix.replaceAll("{{ workspace_files }}", "") + " --output-format=sarif > \(sarif_dir)/hatch-{{ workspace }}.sarif"
+    fix = hatch_check_code.fix.replaceAll("{{ workspace_files }}", "") + " --output-format=sarif > \(sarif_dir)/hatch-{{ workspace | replace(from=\"/\", to=\"--\") }}.sarif"
 }

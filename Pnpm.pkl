@@ -16,7 +16,7 @@ const pnpm_lint = (Builtins.eslint) {
 
 const function pnpm_lint_sarif(sarif_dir: String) = new Config.Step {
     workspace_indicator = "package.json"
-    fix = "cd {{ workspace }} && pnpm run lint:sarif > \(sarif_dir)/eslint-{{ workspace }}.sarif"
+    fix = "cd {{ workspace }} && pnpm run lint:sarif > \(sarif_dir)/eslint-{{ workspace | replace(from=\"/\", to=\"--\") }}.sarif"
 }
 
 const pnpm_type_check = new Config.Step {
