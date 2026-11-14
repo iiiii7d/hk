@@ -1,9 +1,8 @@
 name: Format, Lint
 on:
   push:
-    branches: ["**"]
+    branches: ["**", "!renovate/**", "!lint/**"]
   pull_request:
-    branches-ignore: ["renovate/**", "lint/**"]
   workflow_dispatch:
 
 jobs:
@@ -13,6 +12,7 @@ jobs:
       contents: write
       pull-requests: write
       actions: read
+      security-events: write
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -20,19 +20,20 @@ jobs:
           persist-credentials: false
       - uses: $/.github/actions/mise
 
-      - run: hk run fix --all --no-fail-fast --profile sarif --sarif out.sarif
+      - run: hk run fix --all --no-fail-fast --profile sarif --sarif "$RUNNER_TEMP/out.sarif"
 
       - uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         if: '!cancelled()'
         with:
-          sarif_file: out.sarif
+          sarif_file: "${{ runner.temp }}/out.sarif"
 
       - uses: peter-evans/create-pull-request@15733dbdfeedb4f7fdb73d13c6f5ac83b710fab8 # v8.1.2
         if: '!cancelled()'
         with:
           commit-message: Linting
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          title: Linting (${{ github.ref_name }})
-          branch: lint/${{ github.ref_name }}
+          title: Linting (${{ github.head_ref || github.ref_name }})
+          branch: lint/${{ github.head_ref || github.ref_name }}
+          base: ${{ github.head_ref || github.ref_name }}
           delete-branch: true
           sign-commits: true
