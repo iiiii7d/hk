@@ -4,7 +4,7 @@ import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.
 const zizmor_inner = Builtins.zizmor
 const zizmor = new Config.Group {
     steps {
-        ["zizmor_no_sarif"] = (zizmor_inner) {
+        ["zizmor"] = (zizmor_inner) {
             profiles = List("!sarif")
         }
         ["zizmor_sarif"] = (zizmor_inner) {
@@ -33,7 +33,7 @@ const poutine_inner = new Config.Step {
 }
 const poutine = new Config.Group {
     steps {
-        ["poutine_no_sarif"] = (poutine_inner) {
+        ["poutine"] = (poutine_inner) {
             profiles = List("!sarif")
         }
         ["poutine_sarif"] = (poutine_inner) {
@@ -48,7 +48,7 @@ const poutine = new Config.Group {
 const hadolint_inner = Builtins.hadolint
 const hadolint = new Config.Group {
     steps {
-        ["hadolint_no_sarif"] = (hadolint_inner) {
+        ["hadolint"] = (hadolint_inner) {
             profiles = List("!sarif")
         }
         ["hadolint_sarif"] = (hadolint_inner) {
