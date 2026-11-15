@@ -25,7 +25,7 @@ jobs:
       - uses: $/.github/actions/mise
         with:
           cache: false
-          envs: ''
+          envs: ""
 
       - run: pkl project package
 

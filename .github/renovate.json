@@ -7,12 +7,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)PklProject$/"
-      ],
-      "matchStrings": [
-        "local hkVersion = \"(?<currentValue>.+?)\""
-      ],
+      "managerFilePatterns": ["/(^|/)PklProject$/"],
+      "matchStrings": ["local hkVersion = \"(?<currentValue>.+?)\""],
       "datasourceTemplate": "github-tags",
       "packageNameTemplate": "jdx/hk"
     }
