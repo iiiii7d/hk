@@ -20,8 +20,7 @@ jobs:
           persist-credentials: false
       - uses: $/.github/actions/mise
 
-      - id: hk
-        run: hk run fix --all --no-fail-fast --profile sarif --sarif "$RUNNER_TEMP/out.sarif"
+      - run: hk run fix --all --no-fail-fast --profile sarif --sarif "$RUNNER_TEMP/out.sarif"
 
       - uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         if: '!cancelled()'
@@ -37,6 +36,3 @@ jobs:
           branch: lint/${{ github.ref_name || github.head_ref }}
           delete-branch: true
           sign-commits: true
-
-      - if: steps.hk.outputs.exit-code != 0
-        run: exit ${{ steps.hk.outputs.exit-code }}
