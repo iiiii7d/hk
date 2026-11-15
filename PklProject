@@ -1,7 +1,7 @@
 amends "pkl:Project"
 
 local hkVersion = "2.12.0"
-local release = "10"
+local release = "11"
 
 package {
   name = "hk"

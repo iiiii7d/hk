@@ -11,7 +11,7 @@
         "/(^|/)PklProject$/"
       ],
       "matchStrings": [
-        "local hkVersion = (?<currentValue>.+?)"
+        "local hkVersion = \"(?<currentValue>.+?)\""
       ],
       "datasourceTemplate": "github-tags",
       "packageNameTemplate": "jdx/hk"
