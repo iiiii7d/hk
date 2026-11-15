@@ -5,6 +5,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   hk:
     name: Hk
@@ -43,10 +48,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
-      actions: read
-      security-events: write
+      contents: read
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
