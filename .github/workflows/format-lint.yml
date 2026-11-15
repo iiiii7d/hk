@@ -34,5 +34,6 @@ jobs:
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           title: Linting (${{ github.head_ref || github.ref_name }})
           branch: lint/${{ github.head_ref || github.ref_name }}
+          base: ${{ github.head_ref || github.ref_name }}
           delete-branch: true
           sign-commits: true
