@@ -32,7 +32,7 @@ jobs:
         with:
           commit-message: Linting
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          title: Linting (${{ github.ref_name || github.head_ref }})
-          branch: lint/${{ github.ref_name || github.head_ref }}
+          title: Linting (${{ github.head_ref || github.ref_name }})
+          branch: lint/${{ github.head_ref || github.ref_name }}
           delete-branch: true
           sign-commits: true
