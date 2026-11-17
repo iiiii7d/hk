@@ -45,7 +45,9 @@ const poutine = new Config.Group {
     }
 }
 
-const hadolint_inner = Builtins.hadolint
+const hadolint_inner = (Builtins.hadolint) {
+    glob = "**/{*.,}Dockerfile*"
+}
 const hadolint = new Config.Group {
     steps {
         ["hadolint"] = (hadolint_inner) {

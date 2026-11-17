@@ -1,12 +1,12 @@
 amends "pkl:Project"
 
+local release = "2026.11.17"
 local hkVersion = "2.12.0"
-local release = "11"
 
 package {
   name = "hk"
   authors { "7d <61975820+iiiii7d@users.noreply.github.com>" }
-  version = hkVersion + "-" + release
+  version = release + "+" + hkVersion
   baseUri = "package://pkg.pkl-lang.org/github.com/iiiii7d/hk"
   packageZipUrl = "https://github.com/iiiii7d/hk/releases/download/v\(version)/\(name)@\(version).zip"
   sourceCode = "https://github.com/iiiii7d/hk"
