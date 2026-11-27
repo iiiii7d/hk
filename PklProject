@@ -1,6 +1,6 @@
 amends "pkl:Project"
 
-local release = "2026.11.21"
+local release = "2026.11.27"
 local hkVersion = "2.14.0"
 
 package {
